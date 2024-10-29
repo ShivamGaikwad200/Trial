@@ -13,9 +13,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,6 +29,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
@@ -63,6 +67,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.trial.ui.theme.TrialTheme
 import kotlin.random.Random
+data class AlignYourBodyItem(val drawable: Int, val text: Int)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,8 +75,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             Column (modifier = Modifier,
                 horizontalAlignment = Alignment.CenterHorizontally){
-                SearchBar(Modifier);
-                AlignYourBodyElement(drawable = R.drawable.shivam , text = R.string.Its_Shivam)
+                SearchBar(Modifier,TextAlign.Center);
+                AlignYourBodyRow(Modifier);
                 FavoriteCollectionCard(drawable = R.drawable.shivam22, text = R.string.Its_me, Modifier)
             }
         }
@@ -80,7 +85,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,textAlign: TextAlign
 ) {
     TextField(
         value = "",
@@ -100,7 +105,7 @@ fun SearchBar(
         },
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 56.dp)
+            .heightIn(min = 50.dp)
     )
 }
 
@@ -119,7 +124,7 @@ fun AlignYourBodyElement(
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(88.dp)
+                .size(150.dp)
                 .clip(CircleShape)
         )
         Text(
@@ -129,6 +134,31 @@ fun AlignYourBodyElement(
         )
     }
 }
+
+val alignYourBodyData = listOf(
+    AlignYourBodyItem(R.drawable.shivam, R.string.Yoga),
+    AlignYourBodyItem(R.drawable.shivam, R.string.Jumping),
+    AlignYourBodyItem(R.drawable.shivam, R.string.Playing),
+    AlignYourBodyItem(R.drawable.shivam, R.string.Stretch),
+    AlignYourBodyItem(R.drawable.shivam, R.string.Walking)
+)
+
+
+@Composable
+fun AlignYourBodyRow(
+    modifier: Modifier = Modifier
+) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+        modifier = modifier
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(item.drawable, item.text)
+        }
+    }
+}
+
 
 @Composable
 fun FavoriteCollectionCard(
@@ -143,13 +173,13 @@ fun FavoriteCollectionCard(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.width(255.dp)
+            modifier = Modifier.width(200.dp)
         ) {
             Image(
                 painter = painterResource(drawable),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(80.dp)
+                modifier = Modifier.size(100.dp)
             )
             Text(
                 text = stringResource(text),
