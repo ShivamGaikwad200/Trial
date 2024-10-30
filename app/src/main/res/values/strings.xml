@@ -8,4 +8,8 @@
     <string name="Jumping">jumping</string>
     <string name="Walking">walking</string>
     <string name="Playing">play</string>
+    <string name="align_your_body">Align your Body</string>
+    <string name="favoritecollections">Favourite Collections</string>
+    <string name="bottom_navigation_home">Home</string>
+    <string name="bottom_navigation_profile">Profile</string>
 </resources>
